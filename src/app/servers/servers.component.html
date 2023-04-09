@@ -1,0 +1,22 @@
+<div>
+  <h2>Servers, ngFor</h2>
+  Server name : <input type="text" [(ngModel)]="serverNameInput"/>
+  <button
+    class="btn btn-primary"
+    (click)="onAddServerClick()"
+    [disabled]="serverNameInput === ''"
+  >Add server
+  </button>
+
+  <ul>
+    <app-server *ngFor="let server of servers; let i = index"
+                [id]="servers[i].id"
+                [name]="servers[i].name"
+                [status]="servers[i].status"
+    ></app-server>
+  </ul>
+
+</div>
+
+
+

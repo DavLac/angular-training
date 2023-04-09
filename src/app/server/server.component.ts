@@ -1,5 +1,6 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ServerStatus} from "./serverStatus";
+import {Server} from "./server";
 
 @Component({
   selector: 'app-server',
@@ -7,17 +8,20 @@ import {ServerStatus} from "./serverStatus";
   styleUrls: ['./server.component.scss']
 })
 export class ServerComponent {
-  @Input() id: number;
-  @Input() name: string;
-  @Input() status: ServerStatus;
+  @Input() server: Server;
+  @Output() removeServerById = new EventEmitter<number>();
 
   getServerStatus = (index: number) => ServerStatus[index];
 
-  onClickChangeStatus () {
-    if(this.status === ServerStatus.offline) {
-      this.status = ServerStatus.online;
+  onClickChangeStatus() {
+    if (this.server.status === ServerStatus.offline) {
+      this.server.status = ServerStatus.online;
     } else {
-      this.status = ServerStatus.offline;
+      this.server.status = ServerStatus.offline;
     }
+  }
+
+  onClickRemoveServerById(id: number) {
+    this.removeServerById.emit(id);
   }
 }

@@ -1,18 +1,19 @@
 <div>
-  <h2>Servers, ngFor</h2>
-  Server name : <input type="text" [(ngModel)]="serverNameInput"/>
-  <button
-    class="btn btn-primary"
-    (click)="onAddServerClick()"
-    [disabled]="serverNameInput === ''"
-  >Add server
-  </button>
+  <h2>2 way binding, ngFor</h2>
+  <p>Server name :
+    <input type="text" [(ngModel)]="serverNameInput"/>
+    <button
+      class="btn btn-primary"
+      (click)="onAddServerClick()"
+      [disabled]="serverNameInput === ''"
+    >Add server
+    </button>
+  </p>
 
   <ul>
     <app-server *ngFor="let server of servers; let i = index"
-                [id]="servers[i].id"
-                [name]="servers[i].name"
-                [status]="servers[i].status"
+                [server]="server"
+                (removeServerById)="removeServerById($event)"
     ></app-server>
   </ul>
 

@@ -1,18 +1,24 @@
 <li>
-  <span [ngClass]="{'online-server': status === 0, 'offline-server': status === 1}">
-    Server id = {{ id }}, name = {{ name }}, status = {{ getServerStatus(status) }}
+  <span [ngClass]="{'online-server': server.status === 0, 'offline-server': server.status === 1}">
+    Server id = {{ server.id }}, name = {{ server.name }}, status = {{ getServerStatus(server.status) }}
   </span>
   <button
-    *ngIf="status === 1"
+    *ngIf="server.status === 1"
     class="btn"
     (click)="onClickChangeStatus()"
   >Start
   </button>
 
   <button
-    *ngIf="status === 0"
+    *ngIf="server.status === 0"
     class="btn"
     (click)="onClickChangeStatus()"
   >Shut down
+  </button>
+
+  <button
+    class="btn"
+    (click)="onClickRemoveServerById(server.id)"
+  >X
   </button>
 </li>

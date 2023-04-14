@@ -10,6 +10,7 @@ import {Server} from "./server";
 export class ServerComponent {
   @Input() server: Server;
   @Output() removeServerById = new EventEmitter<number>();
+  @Output() updateServerData = new EventEmitter<Server>();
 
   getServerStatus = (index: number) => ServerStatus[index];
 
@@ -19,6 +20,7 @@ export class ServerComponent {
     } else {
       this.server.status = ServerStatus.offline;
     }
+    this.updateServerData.emit(this.server);
   }
 
   onClickRemoveServerById(id: number) {

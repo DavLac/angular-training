@@ -10,6 +10,7 @@ import { ServersComponent } from './servers/servers.component';
 import { InputComponent } from './input/input.component';
 import { DirectiveinputComponent } from './directiveinput/directiveinput.component';
 import { IncrementComponent } from './increment/increment.component';
+import { TypescriptComponent } from './typescript/typescript.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { IncrementComponent } from './increment/increment.component';
     ServersComponent,
     InputComponent,
     DirectiveinputComponent,
-    IncrementComponent
+    IncrementComponent,
+    TypescriptComponent
   ],
   imports: [
     BrowserModule,

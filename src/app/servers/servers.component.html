@@ -1,5 +1,5 @@
 <div>
-  <h2>2 way binding, ngFor</h2>
+  <h3>2 way binding, ngFor, service, dependency injection</h3>
   <p>Server name :
     <input type="text" [(ngModel)]="serverNameInput"/>
     <button
@@ -14,6 +14,7 @@
     <app-server *ngFor="let server of servers; let i = index"
                 [server]="server"
                 (removeServerById)="removeServerById($event)"
+                (updateServerData)="updateServerData($event)"
     ></app-server>
   </ul>
 

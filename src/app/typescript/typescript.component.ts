@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-typescript',
@@ -42,6 +42,7 @@ enum Color {
   Green,
   Blue,
 }
+
 let myEnum: Color = Color.Green;
 let myEnum2: string = Color[1]; // Green
 
@@ -50,7 +51,7 @@ function helloWorld(): string {
   return "hello world"
 }
 
-const helloWorld2 = (): string =>  "hello world";
+const helloWorld2 = (): string => "hello world";
 
 // void func
 function warnUser(): void {
@@ -141,7 +142,8 @@ interface Circle {
   radius: number;
 }
 
-interface ColorfulCircle extends Colorful, Circle {} // can extend multiple types
+interface ColorfulCircle extends Colorful, Circle {
+} // can extend multiple types
 
 const cc: ColorfulCircle = {
   color: "red",
@@ -152,6 +154,7 @@ const cc: ColorfulCircle = {
 interface Colorful {
   color: string;
 }
+
 interface Circle {
   radius: number;
 }
@@ -184,7 +187,7 @@ abstract class Person {
     this.name = name;
   }
 
-  display(): void{
+  display(): void {
     console.log(this.name);
   }
 
@@ -200,7 +203,7 @@ class Employee extends Person {
     this.empCode = code;
   }
 
-  find(name:string): Person {
+  find(name: string): Person {
     // execute AJAX request to find an employee from a db
     return new Employee(name, 1);
   }
@@ -296,34 +299,71 @@ myGenericNumber.add = function (x, y) {
   return x + y;
 };
 
-
-
-
-
-
-
-
-
-type Relation = Natural | Orga
-
-class Natural {
-  name: string
-  naturalField: number
+// decorators
+function first() {
+  console.log("first(): factory evaluated");
+  return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+    console.log("first(): called");
+  };
 }
 
-class Orga {
-  name: string
-  orgaField: boolean
+function second() {
+  console.log("second(): factory evaluated");
+  return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+    console.log("second(): called");
+  };
 }
 
-class Aggreg {
-  relation: Relation
+class ExampleClass {
+  @first()
+  @second()
+  static method() {
+  }
 }
 
-const aggreg = new Aggreg();
-const natural = aggreg.relation as Natural;
-natural.naturalField = 10;
+ExampleClass.method();
 
-const aggreg2 = new Aggreg();
-const orga = aggreg2.relation as Orga;
-orga.orgaField = true;
+/* output
+first(): factory evaluated
+second(): factory evaluated
+second(): called
+first(): called
+ */
+
+// class decorator
+@sealed
+class BugReport {
+  type = "report";
+  title: string;
+
+  constructor(t: string) {
+    this.title = t;
+  }
+}
+
+// Object.seal() scelle un objet afin d'empêcher l'ajout de nouvelles propriétés,
+// en marquant les propriétés existantes comme non-configurables
+function sealed(constructor: Function) {
+  Object.seal(constructor);
+  Object.seal(constructor.prototype);
+}
+
+// see also: accessor, property, parameter decorators
+
+
+// namespaces : organize your code
+namespace Validation { // validation namespace with some validation class/interfaces inside
+  export interface StringValidator {
+    isAcceptable(s: string): boolean;
+  }
+  const lettersRegexp = /^[A-Za-z]+$/;
+  const numberRegexp = /^[0-9]+$/;
+  export class LettersOnlyValidator implements StringValidator {
+    isAcceptable(s: string) {
+      return lettersRegexp.test(s);
+    }
+  }
+
+  // ...
+}
+
